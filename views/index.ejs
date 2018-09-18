@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+
+    $(document).ready(function(){
+        $('.box').hide();
+
+        var socket = io(); //instantiate socket
+          $('#form').submit(function(){
+            var name = $('#name').val();
+            var location = $('#location').val();
+            var language = $('#language').val();
+            var comment = $('#comment').val();
+
+
+            socket.emit('surveyResults', {
+              "name": name,
+              "location": location,
+              "language": language,
+              "comment": comment
+            });
+
+            return false; // stops the page from refreshing
+        })
+    });
+
+
+
+
+
+    </script>
+
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Survey Form</h1>
+
+      <div class= "box">
+        <p>Something here</p>
+      </div>
+
+    <form action="/process" method="post" id="form">
+
+      <label for="name">Full Name:</label>
+      <input type="text" name="name" id="name"><br>
+      <label for="location">Dojo Location:</label>
+      <select name="location" id="location">
+        <option value="SanJose">San Jose</option>
+        <option value="Seattle">Seattle</option>
+        <option value="Burbank">Burbank</option>
+        <option value="Dallas">Dallas</option>
+      </select>
+      <br>
+      <label for="language">Languages:</label>
+      <select name="language" id="language">
+        <option value="Java">Java</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="Ruby">Ruby</option>
+        <option value="C#">C#</option>
+      </select>
+      <br>
+      <label for="comment">Comments:</label>
+      <textarea name="comment" id="comment" cols="30" rows="10" class="comments"></textarea>
+      <br>
+      <input type="submit" id="Submit" value="Submit">
+    </form>
+
+  </div>
+  </body>
+</html>
